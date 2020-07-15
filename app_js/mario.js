@@ -27,11 +27,11 @@ function getNumPlayers() {
 
         document.getElementById("heading").innerHTML = "Choose the point spread";
 
-        for (var iCount = 0; iCount < numPlayers; iCount++) {
+        for (var i = 0; i < numPlayers; i++) {
             //Displays all of the divs for the same number of players
-            display += "<div id=\"player" + (iCount + 1) + "Div\">"
-            display += "<div><label id=\"player" + (iCount + 1) + "Label\" class=\"text-respond\">Points for being #" + (iCount + 1) + "</label></div>";
-            display += "<div><input type=\"number\" pattern=\"[0-9]*\" id=\"player" + (iCount + 1) + "Points\" class=\"text-respond\"></input></div>";
+            display += "<div id=\"player" + (i + 1) + "Div\">"
+            display += "<div><label id=\"player" + (i + 1) + "Label\" class=\"text-respond\">Points for being #" + (i + 1) + "</label></div>";
+            display += "<div><input type=\"number\" pattern=\"[0-9]*\" id=\"player" + (i + 1) + "Points\" class=\"text-respond\"></input></div>";
             display += "</div>"
             display += "<br>";
         }
@@ -56,17 +56,17 @@ function getPointSpread() {
 
     document.getElementById("heading").innerHTML = "Enter the players names";
 
-    for (var iCount = 0; iCount < numPlayers; iCount++) {
+    for (var i = 0; i < numPlayers; i++) {
         //Displays all of the divs for the same number of players
-        display += "<div id=\"player" + (iCount + 1) + "Div\">"
-        display += "<div><label id=\"player" + (iCount + 1) + "Name\" class=\"text-respond\">Enter Player " + (iCount + 1) + "'s Name</label></div>";
-        display += "<div><label id=\"player" + (iCount + 1) + "Total\" class=\"text-respond\" style=\"display: none\"></label></div>";
-        display += "<div><label id=\"player" + (iCount + 1) + "Label\" class=\"text-respond\" style=\"display: none\">What place did they get?</label></div>";
-        display += "<div><input type=\"text\" id=\"player" + (iCount + 1) + "Score\" class=\"text-respond\"></input></div>";
+        display += "<div id=\"player" + (i + 1) + "Div\">"
+        display += "<div><label id=\"player" + (i + 1) + "Name\" class=\"text-respond\">Enter Player " + (i + 1) + "'s Name</label></div>";
+        display += "<div><label id=\"player" + (i + 1) + "Total\" class=\"text-respond\" style=\"display: none\"></label></div>";
+        display += "<div><label id=\"player" + (i + 1) + "Label\" class=\"text-respond\" style=\"display: none\">What place did they get?</label></div>";
+        display += "<div><input type=\"text\" id=\"player" + (i + 1) + "Score\" class=\"text-respond\"></input></div>";
         display += "</div>"
         display += "<br>";
     }
-    display += "<div class=\"centerBtn\"><div id=\"btnStartGame\" style=\"display: none\"><input type=\"checkbox\" id=\"lowScore\" name=\"lowScore\" value=\"lowScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Start Game\" onclick=\"getScore();\"><br><br></div><div id=\"btnAddScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Add Points\" onclick=\"addScore();\" href=\"#heading\"><br><br></div><div id=\"btnEndGame\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"End Game\" onclick=\"endGame();\" href=\"#heading\"><br><h4 id=\"standings\" class=\"text-respond\"></h4><br><div id=\"copyScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Copy Score\" onclick=\"copyToClipboard();\" href=\"#heading\"></div></div></div>";
+    display += "<div class=\"centerBtn\"><div id=\"btnStartGame\" style=\"display: none\"><input type=\"checkbox\" id=\"lowScore\" name=\"lowScore\" value=\"lowScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Start Game\" onclick=\"getScore();\"><br><br></div><div id=\"btnAddScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Add Points\" onclick=\"addScore();\" href=\"#heading\"><br><br></div><div id=\"btnEndGame\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"End Game\" onclick=\"endGame();\" href=\"#heading\"><h4 id=\"standings\" class=\"text-respond\"></h4><div id=\"copyScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Copy Score\" onclick=\"copyToClipboard();\" href=\"#heading\"></div></div></div>";
     document.getElementById("playerInfo").innerHTML = display;
     //Displays the Start Game button
     document.getElementById("btnStartGame").style.display = "block";
@@ -83,8 +83,8 @@ function getScore() {
         document.getElementById("player" + (i + 1) + "Label").style.display = "block";
     }
 
-    for (var iCount = 0; iCount < iNumPlayers; iCount++) {
-        sName = document.getElementById("player" + (iCount + 1) + "Score").value;
+    for (var i = 0; i < iNumPlayers; i++) {
+        sName = document.getElementById("player" + (i + 1) + "Score").value;
         newPlayer = {
             "name": sName,
             "score": 0,
@@ -92,9 +92,9 @@ function getScore() {
         }
         aoPlayers.push(newPlayer);
 
-        document.getElementById("player" + (iCount + 1) + "Name").innerHTML = aoPlayers[iCount]["name"];
-        document.getElementById("player" + (iCount + 1) + "Total").innerHTML = aoPlayers[iCount]["score"];
-        document.getElementById("player" + (iCount + 1) + "Total").style.display = "block";
+        document.getElementById("player" + (i + 1) + "Name").innerHTML = aoPlayers[i]["name"];
+        document.getElementById("player" + (i + 1) + "Total").innerHTML = aoPlayers[i]["score"];
+        document.getElementById("player" + (i + 1) + "Total").style.display = "block";
     }
 
     document.getElementById("btnAddScore").style.display = "block";
@@ -111,8 +111,8 @@ function getScore() {
 
 function addScore() {
     var badNum = false;
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        if (isNaN(parseInt(document.getElementById("player" + (iCount + 1) + "Score").value)) || parseInt(document.getElementById("player" + (iCount + 1) + "Score").value) > aoPlayers.length) {
+    for (var i = 0; i < aoPlayers.length; i++) {
+        if (isNaN(parseInt(document.getElementById("player" + (i + 1) + "Score").value)) || parseInt(document.getElementById("player" + (i + 1) + "Score").value) > aoPlayers.length) {
             badNum = true;
         }
     }
@@ -171,7 +171,7 @@ function displayScore() {
         displayScore += aoPlayers[i]["hist"] + "<br>";
         aoPlayers[i]["hist"] = "";
     }
-    document.getElementById("standings").innerHTML = "<br>" + displayScore + "<br>";
+    document.getElementById("standings").innerHTML = displayScore;
 }
 
 function endGame() {
@@ -182,8 +182,8 @@ function endGame() {
     document.getElementById("copyScore").style.display = "none";
 
     //hide the player score input fields
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        document.getElementById("player" + (iCount + 1) + "Score").style.display = "none";
+    for (var i = 0; i < aoPlayers.length; i++) {
+        document.getElementById("player" + (i + 1) + "Score").style.display = "none";
     }
 
     //show the play again button
@@ -197,16 +197,16 @@ function endGame() {
 //plays the game again with the same players
 function playAgain() {
     //set all players scores to 0
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        aoPlayers[iCount].resetScore();
+    for (var i = 0; i < aoPlayers.length; i++) {
+        aoPlayers[i].resetScore();
     }
     //displays both the add score and end game buttons
     document.getElementById("btnAddScore").style.display = "block";
     document.getElementById("btnEndGame").style.display = "block";
     document.getElementById("copyScore").style.display = "block";
     //displays the input fields for each of the players again
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        document.getElementById("player" + (iCount + 1) + "Score").style.display = "block";
+    for (var i = 0; i < aoPlayers.length; i++) {
+        document.getElementById("player" + (i + 1) + "Score").style.display = "block";
     }
     //hides the play again and reset button
     document.getElementById("btnPlayAgain").style.display = "none";

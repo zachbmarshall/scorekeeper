@@ -3,16 +3,15 @@ var newPlayer = {
     "score": 0
 }
 
-var aoPlayers = [];
+var player_list = [];
 var lowScore = false;
 
 function getNumPlayers() {
-    var iNumPlayers = parseInt(document.getElementById("numPlayers").value);
+    var num_players = parseInt(document.getElementById("numPlayers").value);
     document.getElementById("winnerName").innerHTML = "";
     document.getElementById("winnerName").style.removeProperty("color");
 
-
-    if (iNumPlayers < 1 || iNumPlayers > 100 || isNaN(parseInt(document.getElementById("numPlayers").value))) {
+    if (num_players < 1 || num_players > 100 || isNaN(parseInt(document.getElementById("numPlayers").value))) {
         document.getElementById("winnerName").innerHTML = "Please enter a number between 1-100";
         document.getElementById("winnerName").style = "color: red;";
         document.getElementById("numPlayers").value = "";
@@ -26,50 +25,47 @@ function getNumPlayers() {
 
         document.getElementById("heading").innerHTML = "Enter the players names";
 
-        for (var iCount = 0; iCount < iNumPlayers; iCount++) {
-            //Displays all of the divs for the same number of players
-            display += "<div id=\"player" + (iCount + 1) + "Div\">"
-            display += "<div><label id=\"player" + (iCount + 1) + "Name\" class=\"text-respond\">Enter Player " + (iCount + 1) + "'s Name</label></div>";
-            display += "<div><label id=\"player" + (iCount + 1) + "Total\" class=\"text-respond\" style=\"display: none\"></label></div>";
-            display += "<div><input type=\"text\" id=\"player" + (iCount + 1) + "Score\" class=\"text-respond\"></input></div>";
-
+        for (var i = 0; i < num_players; i++) {
+            display += "<div id=\"player" + (i + 1) + "Div\">"
+            display += "<div><label id=\"player" + (i + 1) + "Name\" class=\"text-respond\">Enter Player " + (i + 1) + "'s Name</label></div>";
+            display += "<div><label id=\"player" + (i + 1) + "Total\" class=\"text-respond\" style=\"display: none\"></label></div>";
+            display += "<div><input type=\"text\" id=\"player" + (i + 1) + "Score\" class=\"text-respond\"></input></div>";
             display += "</div>"
             display += "<br>";
         }
+        //add low score check box, start game, add points, and end game button divs
         display += "<div class=\"centerBtn\"><div id=\"btnStartGame\" style=\"display: none\"><input type=\"checkbox\" id=\"lowScore\" name=\"lowScore\" value=\"lowScore\"><label for=\"lowScore\"> Lowest score wins</label><input type=\"button\" class=\"text-respond\" value=\"Start Game\" onclick=\"getPlayerNames();\"><br><br></div><div id=\"btnAddScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Add Points\" onclick=\"addScore();\" href=\"#heading\"><br><br></div><div id=\"btnEndGame\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"End Game\" onclick=\"endGame();\" href=\"#heading\"></div></div>";
         document.getElementById("playerInfo").innerHTML = display;
-        //Displays the Start Game button
         document.getElementById("btnStartGame").style.display = "block";
     }
 }
 
 function getPlayerNames() {
-
     lowScore = document.getElementById("lowScore").checked;
     document.getElementById("btnStartGame").style.display = "none";
-    var iNumPlayers = parseInt(document.getElementById("numPlayers").value);
-    var sName = "";
+    var num_players = parseInt(document.getElementById("numPlayers").value);
+    var name = "";
 
-    for (var iCount = 0; iCount < iNumPlayers; iCount++) {
-        sName = document.getElementById("player" + (iCount + 1) + "Score").value;
+    for (var i = 0; i < num_players; i++) {
+        name = document.getElementById("player" + (i + 1) + "Score").value;
         newPlayer = {
-            "name": sName,
+            "name": name,
             "score": 0
         }
-        aoPlayers.push(newPlayer);
+        player_list.push(newPlayer);
 
-        var oInputField = document.getElementById("player" + (iCount + 1) + "Score");
+        var oInputField = document.getElementById("player" + (i + 1) + "Score");
         oInputField.type = ("number");
         oInputField.placeholder = ("0");
 
-        document.getElementById("player" + (iCount + 1) + "Name").innerHTML = aoPlayers[iCount]["name"];
-        document.getElementById("player" + (iCount + 1) + "Total").innerHTML = aoPlayers[iCount]["score"];
-        document.getElementById("player" + (iCount + 1) + "Total").style.display = "block";
+        document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
+        document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
+        document.getElementById("player" + (i + 1) + "Total").style.display = "block";
     }
 
     document.getElementById("btnAddScore").style.display = "block";
     document.getElementById("btnEndGame").style.display = "block";
-    for(var i = 0; i < iNumPlayers; i++){
+    for(var i = 0; i < num_players; i++){
         document.getElementById("player" + (i + 1) + "Score").type = "number";
     }
 
@@ -77,14 +73,15 @@ function getPlayerNames() {
 }
 
 function addScore() {
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        if (isNaN(parseInt(document.getElementById("player" + (iCount + 1) + "Score").value))) {
-            aoPlayers[iCount]["score"] += 0;
-            document.getElementById("player" + (iCount + 1) + "Score").value = "";
+    for (var i = 0; i < player_list.length; i++) {
+        //awards 0 points to any player that does not have a score input, else adds input score
+        if (isNaN(parseInt(document.getElementById("player" + (i + 1) + "Score").value))) {
+            player_list[i]["score"] += 0;
+            document.getElementById("player" + (i + 1) + "Score").value = "";
         }
         else {
-            aoPlayers[iCount]["score"] += parseInt(document.getElementById("player" + (iCount + 1) + "Score").value);
-            document.getElementById("player" + (iCount + 1) + "Score").value = "";
+            player_list[i]["score"] += parseInt(document.getElementById("player" + (i + 1) + "Score").value);
+            document.getElementById("player" + (i + 1) + "Score").value = "";
         }
     }
     displayScore();
@@ -92,36 +89,34 @@ function addScore() {
 
 function displayScore() {
     document.getElementById("heading").innerHTML = "Current Score";
-    var aoTempArray = [];
-
+    var temp_array = [];
     if (lowScore) {
         //bubble sorts the winners by score in ascending order
-        for (var iCount1 = 0; iCount1 < aoPlayers.length - 1; iCount1++) {
-            for (var iCount2 = iCount1 + 1; iCount2 < aoPlayers.length; iCount2++) {
-                if (aoPlayers[iCount1]["score"] > aoPlayers[iCount2]["score"]) {
-                    aoTempArray[iCount1] = aoPlayers[iCount1];
-                    aoPlayers[iCount1] = aoPlayers[iCount2];
-                    aoPlayers[iCount2] = aoTempArray[iCount1];
+        for (var i = 0; i < player_list.length - 1; i++) {
+            for (var j = i + 1; j < player_list.length; j++) {
+                if (player_list[i]["score"] > player_list[j]["score"]) {
+                    temp_array[i] = player_list[i];
+                    player_list[i] = player_list[j];
+                    player_list[j] = temp_array[i];
                 }
             }
         }
     }
     else {
         //bubble sorts the winners by score in descending order
-        for (var iCount1 = 0; iCount1 < aoPlayers.length - 1; iCount1++) {
-            for (var iCount2 = iCount1 + 1; iCount2 < aoPlayers.length; iCount2++) {
-                if (aoPlayers[iCount1]["score"] < aoPlayers[iCount2]["score"]) {
-                    aoTempArray[iCount1] = aoPlayers[iCount1];
-                    aoPlayers[iCount1] = aoPlayers[iCount2];
-                    aoPlayers[iCount2] = aoTempArray[iCount1];
+        for (var i = 0; i < player_list.length - 1; i++) {
+            for (var j = i + 1; j < player_list.length; j++) {
+                if (player_list[i]["score"] < player_list[j]["score"]) {
+                    temp_array[i] = player_list[i];
+                    player_list[i] = player_list[j];
+                    player_list[j] = temp_array[i];
                 }
             }
         }
     }
-
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        document.getElementById("player" + (iCount + 1) + "Name").innerHTML = aoPlayers[iCount]["name"];
-        document.getElementById("player" + (iCount + 1) + "Total").innerHTML = aoPlayers[iCount]["score"];
+    for (var i = 0; i < player_list.length; i++) {
+        document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
+        document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
 
     }
 }
@@ -133,7 +128,7 @@ function endGame() {
     document.getElementById("btnEndGame").style.display = "none";
 
     //hide the player score input fields
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
+    for (var iCount = 0; iCount < player_list.length; iCount++) {
         document.getElementById("player" + (iCount + 1) + "Score").style.display = "none";
     }
 
@@ -141,22 +136,21 @@ function endGame() {
     //document.getElementById("btnPlayAgain").style.display = "block";
     document.getElementById("btnResetGame").style.display = "block";
     //declare winner of the game
-    document.getElementById("winnerName").innerHTML = "<br>" + aoPlayers[0].name + " wins with a score of " + aoPlayers[0].score + "!<br>";
-
+    document.getElementById("winnerName").innerHTML = "<br>" + player_list[0].name + " wins with a score of " + player_list[0].score + "!<br>";
 }
 
-//plays the game again with the same players
-function playAgain() {
+//plays the game again with the same players **needs adjustement
+/*function playAgain() {
     //set all players scores to 0
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        aoPlayers[iCount].resetScore();
+    for (var i = 0; i < player_list.length; i++) {
+        player_list[i].resetScore();
     }
     //displays both the add score and end game buttons
     document.getElementById("btnAddScore").style.display = "block";
     document.getElementById("btnEndGame").style.display = "block";
     //displays the input fields for each of the players again
-    for (var iCount = 0; iCount < aoPlayers.length; iCount++) {
-        document.getElementById("player" + (iCount + 1) + "Score").style.display = "block";
+    for (var i = 0; i < player_list.length; i++) {
+        document.getElementById("player" + (i + 1) + "Score").style.display = "block";
     }
     //hides the play again and reset button
     document.getElementById("btnPlayAgain").style.display = "none";
@@ -164,4 +158,4 @@ function playAgain() {
     displayScore();
     document.getElementById("winnerName").innerHTML = "";
     getPlayerNames();
-}
+}*/

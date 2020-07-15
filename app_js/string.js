@@ -64,8 +64,6 @@ tempStr2 = lastCheckTime.slice(lastCheckTime.indexOf("on"), lastCheckTime.length
 tempStr2 = "(PST) " + tempStr2;
 lastCheckTime = tempStr + tempStr2;
 
-
-
 for (let i = 0; i < ridesArr.length; i++) {
     if (i == ridesArr.length - 1) {
         j = ridesArr[i] + 13;
