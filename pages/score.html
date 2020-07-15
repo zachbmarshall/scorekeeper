@@ -79,9 +79,10 @@
               onclick="getNumPlayers();">
             <h4 id="winnerName" class="text-respond"></h4>
             <div class="centerBtn inputOption">
-              <div id="btnResetGame" style="display: none">
-                <input type="button" class="text-respond" value="Reset Game"
-                  onclick="window.location.href ='score.html';"><br>
+              <div id="btnDiv" style="display: none">
+                <input type="button" class="text-respond" value="Reset Game" id="btnResetGame"
+                  onclick="window.location.href ='score.html';"><br><br>
+                  <input type="button" class="text-respond" id="btnPlayAgain" value="Play Again" onclick="playAgain()">
               </div>
             </div>
             <div id="playerInfo" class="container-center center-div inputOption">
@@ -109,7 +110,7 @@
       <p>&copy; Copyright @Zach Marshall 2020. All Rights Reserved.</p>
       <ul class="list-inline">
         <li class="list-inline-item">
-          <a href="https://github.com/zachbmarshall/CreativeProject">GitHub Repo</a>
+          <a href="https://github.com/zachbmarshall/gamenight">GitHub Repo</a>
         </li>
       </ul>
     </div>

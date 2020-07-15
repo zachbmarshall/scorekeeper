@@ -117,7 +117,6 @@ function displayScore() {
     for (var i = 0; i < player_list.length; i++) {
         document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
         document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
-
     }
 }
 
@@ -133,15 +132,15 @@ function endGame() {
     }
 
     //show the play again button
-    //document.getElementById("btnPlayAgain").style.display = "block";
-    document.getElementById("btnResetGame").style.display = "block";
+    document.getElementById("btnDiv").style.display = "block";
     //declare winner of the game
     document.getElementById("winnerName").innerHTML = "<br>" + player_list[0].name + " wins with a score of " + player_list[0].score + "!<br>";
 }
 
 //plays the game again with the same players **needs adjustement
-/*function playAgain() {
-    //set all players scores to 0
+function playAgain() {
+    console.log("test");
+    /*set all players scores to 0
     for (var i = 0; i < player_list.length; i++) {
         player_list[i].resetScore();
     }
@@ -157,5 +156,5 @@ function endGame() {
     document.getElementById("btnResetGame").style.display = "none";
     displayScore();
     document.getElementById("winnerName").innerHTML = "";
-    getPlayerNames();
-}*/
+    getPlayerNames();*/
+}
