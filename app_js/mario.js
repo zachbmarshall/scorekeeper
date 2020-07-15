@@ -56,6 +56,7 @@ function getPointSpread() {
 
     document.getElementById("heading").innerHTML = "Enter the players names";
 
+    display += "<div id=\"playersInfo\">";
     for (var i = 0; i < numPlayers; i++) {
         //Displays all of the divs for the same number of players
         display += "<div id=\"player" + (i + 1) + "Div\">"
@@ -67,10 +68,11 @@ function getPointSpread() {
         display += "<br>";
     }
     display += "<div class=\"centerBtn\"><div id=\"btnStartGame\" style=\"display: none\"><input type=\"checkbox\" id=\"lowScore\" name=\"lowScore\" value=\"lowScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Start Game\" onclick=\"getScore();\"><br><br></div><div id=\"btnAddScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Add Points\" onclick=\"addScore();\" href=\"#heading\"><br><br></div><div id=\"btnEndGame\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"End Game\" onclick=\"endGame();\" href=\"#heading\"><h4 id=\"standings\" class=\"text-respond\"></h4><div id=\"copyScore\" style=\"display: none\"><input type=\"button\" class=\"text-respond\" value=\"Copy Score\" onclick=\"copyToClipboard();\" href=\"#heading\"></div></div></div>";
+    display += "</div>";
     document.getElementById("playerInfo").innerHTML = display;
     //Displays the Start Game button
     document.getElementById("btnStartGame").style.display = "block";
-
+    toTop();
 }
 
 function getScore() {
@@ -107,8 +109,10 @@ function getScore() {
     }
 
     displayScore();
+    toTop();
 }
 
+//adds no points if places are outside bounds, else adds respective points from point spread
 function addScore() {
     var badNum = false;
     for (var i = 0; i < player_list.length; i++) {
@@ -131,15 +135,14 @@ function addScore() {
             document.getElementById("player" + (i + 1) + "Score").value = "";
         }
     }
-
     displayScore();
 }
 
+//sorts and displays the order of the players
 function displayScore() {
     document.getElementById("heading").innerHTML = "Current Score";
     var aoTempArray = [];
     var displayScore = "";
-
     if (lowScore) {
         //bubble sorts the winners by score in ascending order
         for (var i = 0; i < player_list.length - 1; i++) {
@@ -164,7 +167,6 @@ function displayScore() {
             }
         }
     }
-
     for (var i = 0; i < player_list.length; i++) {
         document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
         document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
@@ -174,46 +176,36 @@ function displayScore() {
     document.getElementById("standings").innerHTML = displayScore;
 }
 
+//declares winner of game and 
 function endGame() {
-    //changes title heading and hides add score and end game buttons
+    var output = "";
     document.getElementById("heading").innerHTML = "Game Over";
-    document.getElementById("btnAddScore").style.display = "none";
-    document.getElementById("btnEndGame").style.display = "none";
-    document.getElementById("copyScore").style.display = "none";
-
-    //hide the player score input fields
-    for (var i = 0; i < player_list.length; i++) {
-        document.getElementById("player" + (i + 1) + "Score").style.display = "none";
+    document.getElementById("playersInfo").style.display = "none";
+    document.getElementById("btnDiv").style.display = "block";
+    output += "<br>" + player_list[0].name + " wins with a score of " + player_list[0].score + "!<br>";
+    for(var i = 0; i < player_list.length; i++){
+        output += player_list[i].name + " - " + player_list[i].score + "<br>";
     }
-
-    //show the play again button
-    //document.getElementById("btnPlayAgain").style.display = "block";
-    document.getElementById("btnResetGame").style.display = "block";
-    //declare winner of the game
-    document.getElementById("winnerName").innerHTML = "<br>" + player_list[0].name + " wins with a score of " + player_list[0].score + "!<br>";
-
+    document.getElementById("winnerName").innerHTML = output;
+    toTop();
 }
 
 //plays the game again with the same players
 function playAgain() {
-    //set all players scores to 0
-    for (var i = 0; i < player_list.length; i++) {
-        player_list[i].resetScore();
-    }
-    //displays both the add score and end game buttons
-    document.getElementById("btnAddScore").style.display = "block";
-    document.getElementById("btnEndGame").style.display = "block";
-    document.getElementById("copyScore").style.display = "block";
-    //displays the input fields for each of the players again
-    for (var i = 0; i < player_list.length; i++) {
-        document.getElementById("player" + (i + 1) + "Score").style.display = "block";
-    }
-    //hides the play again and reset button
-    document.getElementById("btnPlayAgain").style.display = "none";
-    document.getElementById("btnResetGame").style.display = "none";
-    displayScore();
+    document.getElementById("btnDiv").style.display = "none";
     document.getElementById("winnerName").innerHTML = "";
-    getPlayerNames();
+    for (var i = 0; i < player_list.length; i++) {
+        player_list[i].score = 0;
+    }
+    document.getElementById("playersInfo").style.display = "block";
+    displayScore();
+    toTop();
+}
+
+//scrolls to the top of the page
+function toTop(){
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
 function copyToClipboard() {
