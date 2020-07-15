@@ -4,7 +4,7 @@ var newPlayer = {
     "hist": ""
 }
 
-var aoPlayers = [];
+var player_list = [];
 var pointSpread = [];
 var lowScore = false;
 
@@ -90,10 +90,10 @@ function getScore() {
             "score": 0,
             "hist": ""
         }
-        aoPlayers.push(newPlayer);
+        player_list.push(newPlayer);
 
-        document.getElementById("player" + (i + 1) + "Name").innerHTML = aoPlayers[i]["name"];
-        document.getElementById("player" + (i + 1) + "Total").innerHTML = aoPlayers[i]["score"];
+        document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
+        document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
         document.getElementById("player" + (i + 1) + "Total").style.display = "block";
     }
 
@@ -111,23 +111,23 @@ function getScore() {
 
 function addScore() {
     var badNum = false;
-    for (var i = 0; i < aoPlayers.length; i++) {
-        if (isNaN(parseInt(document.getElementById("player" + (i + 1) + "Score").value)) || parseInt(document.getElementById("player" + (i + 1) + "Score").value) > aoPlayers.length) {
+    for (var i = 0; i < player_list.length; i++) {
+        if (isNaN(parseInt(document.getElementById("player" + (i + 1) + "Score").value)) || parseInt(document.getElementById("player" + (i + 1) + "Score").value) > player_list.length) {
             badNum = true;
         }
     }
     if (badNum) {
-        for (var i = 0; i < aoPlayers.length; i++) {
-            aoPlayers[i]["score"] += 0;
+        for (var i = 0; i < player_list.length; i++) {
+            player_list[i]["score"] += 0;
             document.getElementById("player" + (i + 1) + "Score").value = "";
         }
     }
     else {
-        for (var i = 0; i < aoPlayers.length; i++) {
-            aoPlayers["hist"] = "";
-            aoPlayers[i]["hist"] += aoPlayers[i]["name"] + ": " + aoPlayers[i]["score"] + " + " + pointSpread[parseInt(document.getElementById("player" + (i + 1) + "Score").value) - 1];
-            aoPlayers[i]["score"] += pointSpread[parseInt(document.getElementById("player" + (i + 1) + "Score").value) - 1];
-            aoPlayers[i]["hist"] += " = " + aoPlayers[i]["score"];
+        for (var i = 0; i < player_list.length; i++) {
+            player_list[i]["hist"] = "";
+            player_list[i]["hist"] += player_list[i]["name"] + ": " + player_list[i]["score"] + " + " + pointSpread[parseInt(document.getElementById("player" + (i + 1) + "Score").value) - 1];
+            player_list[i]["score"] += pointSpread[parseInt(document.getElementById("player" + (i + 1) + "Score").value) - 1];
+            player_list[i]["hist"] += " = " + player_list[i]["score"];
             document.getElementById("player" + (i + 1) + "Score").value = "";
         }
     }
@@ -142,34 +142,34 @@ function displayScore() {
 
     if (lowScore) {
         //bubble sorts the winners by score in ascending order
-        for (var i = 0; i < aoPlayers.length - 1; i++) {
-            for (var j = i + 1; j < aoPlayers.length; j++) {
-                if (aoPlayers[i]["score"] > aoPlayers[j]["score"]) {
-                    aoTempArray[i] = aoPlayers[i];
-                    aoPlayers[i] = aoPlayers[j];
-                    aoPlayers[j] = aoTempArray[i];
+        for (var i = 0; i < player_list.length - 1; i++) {
+            for (var j = i + 1; j < player_list.length; j++) {
+                if (player_list[i]["score"] > player_list[j]["score"]) {
+                    aoTempArray[i] = player_list[i];
+                    player_list[i] = player_list[j];
+                    player_list[j] = aoTempArray[i];
                 }
             }
         }
     }
     else {
         //bubble sorts the winners by score in descending order
-        for (var i = 0; i < aoPlayers.length - 1; i++) {
-            for (var j = i + 1; j < aoPlayers.length; j++) {
-                if (aoPlayers[i]["score"] < aoPlayers[j]["score"]) {
-                    aoTempArray[i] = aoPlayers[i];
-                    aoPlayers[i] = aoPlayers[j];
-                    aoPlayers[j] = aoTempArray[i];
+        for (var i = 0; i < player_list.length - 1; i++) {
+            for (var j = i + 1; j < player_list.length; j++) {
+                if (player_list[i]["score"] < player_list[j]["score"]) {
+                    aoTempArray[i] = player_list[i];
+                    player_list[i] = player_list[j];
+                    player_list[j] = aoTempArray[i];
                 }
             }
         }
     }
 
-    for (var i = 0; i < aoPlayers.length; i++) {
-        document.getElementById("player" + (i + 1) + "Name").innerHTML = aoPlayers[i]["name"];
-        document.getElementById("player" + (i + 1) + "Total").innerHTML = aoPlayers[i]["score"];
-        displayScore += aoPlayers[i]["hist"] + "<br>";
-        aoPlayers[i]["hist"] = "";
+    for (var i = 0; i < player_list.length; i++) {
+        document.getElementById("player" + (i + 1) + "Name").innerHTML = player_list[i]["name"];
+        document.getElementById("player" + (i + 1) + "Total").innerHTML = player_list[i]["score"];
+        displayScore += player_list[i]["hist"] + "<br>";
+        player_list[i]["hist"] = "";
     }
     document.getElementById("standings").innerHTML = displayScore;
 }
@@ -182,7 +182,7 @@ function endGame() {
     document.getElementById("copyScore").style.display = "none";
 
     //hide the player score input fields
-    for (var i = 0; i < aoPlayers.length; i++) {
+    for (var i = 0; i < player_list.length; i++) {
         document.getElementById("player" + (i + 1) + "Score").style.display = "none";
     }
 
@@ -190,22 +190,22 @@ function endGame() {
     //document.getElementById("btnPlayAgain").style.display = "block";
     document.getElementById("btnResetGame").style.display = "block";
     //declare winner of the game
-    document.getElementById("winnerName").innerHTML = "<br>" + aoPlayers[0].name + " wins with a score of " + aoPlayers[0].score + "!<br>";
+    document.getElementById("winnerName").innerHTML = "<br>" + player_list[0].name + " wins with a score of " + player_list[0].score + "!<br>";
 
 }
 
 //plays the game again with the same players
 function playAgain() {
     //set all players scores to 0
-    for (var i = 0; i < aoPlayers.length; i++) {
-        aoPlayers[i].resetScore();
+    for (var i = 0; i < player_list.length; i++) {
+        player_list[i].resetScore();
     }
     //displays both the add score and end game buttons
     document.getElementById("btnAddScore").style.display = "block";
     document.getElementById("btnEndGame").style.display = "block";
     document.getElementById("copyScore").style.display = "block";
     //displays the input fields for each of the players again
-    for (var i = 0; i < aoPlayers.length; i++) {
+    for (var i = 0; i < player_list.length; i++) {
         document.getElementById("player" + (i + 1) + "Score").style.display = "block";
     }
     //hides the play again and reset button
