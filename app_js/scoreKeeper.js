@@ -75,6 +75,7 @@ function getPlayerNames() {
         document.getElementById("player" + (i + 1) + "Score").type = "number";
     }
     displayScore();
+    toTop();
 }
 
 //awards 0 points to any player that does not have a score input, else adds input score
@@ -90,6 +91,7 @@ function addScore() {
         }
     }
     displayScore();
+    toTop();
 }
 
 //sorts and displays the order of the players
@@ -137,15 +139,23 @@ function endGame() {
         output += player_list[i].name + " - " + player_list[i].score + "<br>";
     }
     document.getElementById("winnerName").innerHTML = output;
+    toTop();
 }
 
 //plays the game again with the same players
 function playAgain() {
-    console.log("test");
     document.getElementById("btnDiv").style.display = "none";
     document.getElementById("winnerName").innerHTML = "";
     for (var i = 0; i < player_list.length; i++) {
         player_list[i].score = 0;
     }
     document.getElementById("playersInfo").style.display = "block";
+    displayScore();
+    toTop();
+}
+
+//scrolls to the top of the page
+function toTop(){
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
