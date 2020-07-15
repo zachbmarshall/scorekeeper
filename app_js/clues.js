@@ -1,29 +1,22 @@
-function startGame()
-{
-    
-            
-    var iCaseNumber = parseInt(document.getElementById("caseNum").value) - 1;
+function startGame(){       
+    var case_num = parseInt(document.getElementById("caseNum").value) - 1;
 
     document.getElementById("getCaseNum").style.visibility = "hidden";
     document.getElementById("getClue").style.visibility = "visible";
 
-    document.getElementById("outputCaseTitle").innerHTML = asCaseTitle[iCaseNumber];
-    document.getElementById("outputCaseText").innerHTML = asCaseText[iCaseNumber];
+    document.getElementById("outputCaseTitle").innerHTML = case_names[case_num];
+    document.getElementById("outputCaseText").innerHTML = case_summary[case_num];
 
 }
 
-function getClue()
-{
-    var iCaseNumber = parseInt(document.getElementById("caseNum").value) - 1;
-    var iClueNum = parseInt(document.getElementById("userLocation").value);
-    var iClueIndex = asCodeClues[iCaseNumber][iClueNum] - 1;
-
-    document.getElementById("outputClueText").innerHTML = asClues[iClueIndex];
+function getClue(){
+    var case_num = parseInt(document.getElementById("caseNum").value) - 1;
+    var clue_num = parseInt(document.getElementById("userLocation").value);
+    var clue_index = clue_page[case_num][clue_num] - 1;
+    document.getElementById("outputClueText").innerHTML = clue_text[clue_index];
 }
 
-
-
-var asCaseTitle = ["", 
+var case_names = ["", 
                     "", 
                     "", 
                     "", 
@@ -44,12 +37,7 @@ var asCaseTitle = ["",
                     "Case #19 THE ADVENTURE OF THE MURDERED DRUGGIST",
                     "Case #20 THE ADVENTURE OF THE BEESWAX HEIRESS"];
         
-
-
-
-
-
-var asCaseText = ["",
+var case_summary = ["",
                  "", 
                  "", 
                  "", 
@@ -70,11 +58,7 @@ var asCaseText = ["",
                 "Friendly druggist Eugene R. Kane was found murdered this afternoon in the Apothecary. He had been brutally stabbed three times through the heart. <br><br>Scotland Yard has established through a witness that only three persons entered or left the Apothecary during the time of the murder. <br><br>The witness, Mrs. Wilma Farr, who lives two doors from the Apothecary, stated: \"I was sitting outside on my porch waiting for my mail like I always do, when Mr. Kane came by returning from lunch. He stopped for a moment and we chatted. I remember he said he had eaten lunch at the Pub with Mr. Daniel Kirwin, an official at the Museum. Then he said 'Ta ta,' and he went and reopened the Apothecary for business.\" <br><br>Mrs. Farr states that she then observed only three persons enter or leave the Apothecary. These three were Myra Hyatt, a teller at the Bank; Clara Wexler, a Playhouse actress; and Michael Milligan, the neighborhood bobby on beat. All three of these unlikely suspects admit entering the Apothecary shortly after lunch; but all three claim to have left the druggist in good health. <br><br>Mrs. Farr says that after the postman arrived, she read through her mail and found a letter addressed to Mr. Kane which was left with her by mistake. She decided to take the letter to Mr. Kane; and upon arriving at the Apothecary, she found the dead druggist's body and called the police. Inspector Lestrade, who is investigating the murder, has wandered into 221 B Baker Street to collect Holmes' thoughts on the strange incident. <br><br>After listening to Lestrade's account of the case, Holmes reminds the Inspector of one of the cardinal rules of deduction. \"When you have eliminated the impossible,\" says Holmes, \"whatever remains, however improbable, must be the truth.\" <br><br>Scotland Yard is still looking for a) the killer, b) the weapon, and c) the motive. The game is afoot! <br><br>APOTHECARY 238<br> BANK 223<br> CARRIAGE DEPOT 233<br> DOCK 243<br> HOTEL 248<br> LOCKSMITH 253<br> MUSEUM 258<br> NEWSPAPER SHOP 263<br> PARK 268<br> PAWNBROKER 273<br> PLAYHOUSE 218<br> PUB 213<br> SCOTLAND YARD 228<br> TOBACCONIST 278<br>",
                 "Inspector Gregson of Scotland Yard has come to 221 B Baker Street to discuss the curious case of Mr. Winston Dunphy, who was found burned to death in a tool shed on his property three nights ago.<br><br>Dunphy was married to Miss Leslie Scott Rutherford, a wealthy heiress whose late father founded Rutherford Candlemakers, one of the largest beeswax and candlemaking companies in England. <br><br>Dunphy, ten years younger than Leslie Rutherford, met and married the woman three years ago. Since that time, the couple has lived as the only residents of Miss Rutherford's (now Mrs. Dunphy's) modest country estate in Wessex. <br><br>According to Mrs. Dunphy, she last saw her husband three nights ago when he went outside to check on a noise which seemed to come from the tool shed in the back of their house. Suspecting that there might be a prowler on the grounds, Mr. Dunphy took a lighted candle and went outside to check. <br><br>A few minutes later, the tool shed was aflame; and before help could be summoned, the shed burned to the ground. Mr. Dunphy's remains, burned beyond recognition, were found in the charred rubble of the shed. <br><br>The simple explanation for Dunphy's death is that Dunphy surprised a prowler in the tool shed; the prowler knocked Dunphy unconscious and fled; and the lit candle dropped to the ground and set the shed on fire. But Gregson has a feeling that there's more to the case than that. He says he can't put his finger on it; but, for some reason he feels that Mrs. Dunphy is hiding something. <br><br>Holmes and Watson agree to accompany Gregson to Wessex to view the scene of the crime and talk to Mrs. Dunphy. But first Holmes insists that they stop at the Bank. <br><br>At the Dunphy home, Holmes spots a wheelbarrow standing near a back wall and notices deep wheelbarrow impressions leading from the house to the tool shed. Among the tool shed ashes, Holmes finds a large hunk of green beeswax. <br><br>While talking to Mrs. Dunphy in her study, Holmes holds up the beeswax and asks the woman if it is from the candle her husband carried outside three nights ago. Holmes tosses the wax to Mrs. Dunphy. She clasps her legs together, catching the wax in her lap, and then examines it. \"Yes,\" she says, \"it definitely appears to be from the same candle.\" <br><br>Holmes says, \"I thought as much.\" Then the master detective turns to a surprised Gregson and Watson and announces that he has solved the case. Holmes offers to reveal a) the killer, b) the weapon, and c) the motive. <br><br>The game is afoot! <br><br>APOTHECARY 142<br>NEWSPAPER SHOP 177<br> BANK 202<br>PARK 182<br> CARRIAGE DEPOT 152<br>PAWNBROKER 197<br> DOCK 157<br> PLAYHOUSE 193<br> HOTEL 162<br> PUB 147<br> LOCKSMITH 167<br> SCOTLAND YARD 187<br> MUSEUM 172<br> TOBACCONIST 207<br>"];
         
-        
-        
-        
-        
-var asCodeClues = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+var clue_page = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -95,7 +79,7 @@ var asCodeClues = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [238, 223, 233, 243, 248, 253, 258, 263, 268, 273, 218, 213, 228, 278],
             [142, 177, 202, 182, 152, 197, 157, 193, 162, 147, 167, 187, 172, 207]];
 
-var asClues = ["1. Earl Longworth has constant headaches.", "2. The knife in Foster's chest was not thrust by human hands.",
+var clue_text = ["1. Earl Longworth has constant headaches.", "2. The knife in Foster's chest was not thrust by human hands.",
 "3. KILLER CLUE (Three Parts) III A type of fabric.", "4. The floor of Silver Patch's stall contained some fresh black paint.", 
 "5. MOTIVE CLUE (Four Parts) III The alphabet letter after K.", "6. Colonel Sebastian Moran.", "7. No clue.", 
 "8. Jules Ridgely purchased some pills to help his severe case of vertigo.", "9. WEAPON CLUE (Two Parts) I \"Yo, ho, the man down.\" (Song).", 
